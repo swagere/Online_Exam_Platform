@@ -183,6 +183,7 @@ public class ExamController {
         Map userInfo = (Map) request.getSession().getAttribute("userInfo");
         String stu_id = String.valueOf(userInfo.get("id"));
         JSONObject json = judgeService.judge(program.getCode(), program.getLanguage(), program.getQuestion_id());
+        System.out.println(json);
         log.info("判题成功");
         JudgeResult judgeResult = judgeService.transformToResult(json, stu_id, program.getCode(), program.getLanguage(), program.getQuestion_id(), program.getExam_id());
         return AjaxResponse.success(judgeResult);

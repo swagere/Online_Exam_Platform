@@ -14,9 +14,9 @@ public class LoadBalanceUtils {
         //初始化操作
         url_map = new HashMap<>();
         count = new HashMap<>();
-        url_map.put(0, "http://121.36.18.182:10085/judge");
-        url_map.put(1, "http://121.36.18.182:10084/judge");
-        url_map.put(2, "http://121.36.18.182:10083/judge");
+        url_map.put(0, "http://10.0.0.101:10085/judge");
+        url_map.put(1, "http://10.0.0.101:10085/judge");
+        url_map.put(2, "http://10.0.0.101:10085/judge");
         count.put(0, 0);
         count.put(1, 0);
         count.put(2, 0);
