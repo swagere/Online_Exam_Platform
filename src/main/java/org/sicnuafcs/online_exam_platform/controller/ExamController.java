@@ -60,6 +60,21 @@ public class ExamController {
     @Autowired
     HomePageService homePageService;
 
+    /*学生首页*/
+    //学号登录获取信息
+    @RequestMapping("/stu/id")
+    public @ResponseBody
+    AjaxResponse findStuById(@RequestBody String str, HttpServletRequest httpServletRequest) {
+        authorityCheckService.checkStudentAuthority(httpServletRequest.getSession().getAttribute("userInfo"));
+
+        //Long exam_id, String stu_id
+        String stu_id = JSON.parseObject(str).get("stu_id").toString();
+        Integer status = Integer.valueOf(JSON.parseObject(str).get("status").toString());
+        List<Object> json = homePageService.findStuById(stu_id,status);
+        return AjaxResponse.success(json);
+
+    }
+
     /**
      * 老师添加/更新题目
      * @param getQuestion

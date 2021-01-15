@@ -10,6 +10,7 @@ import org.sicnuafcs.online_exam_platform.model.*;
 import org.sicnuafcs.online_exam_platform.service.AuthorityCheckService;
 import org.sicnuafcs.online_exam_platform.service.CourseSelectionService;
 import org.sicnuafcs.online_exam_platform.service.ExamService;
+import org.sicnuafcs.online_exam_platform.service.HomePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,24 @@ public class CourseController {
     ExamService examService;
     @Autowired
     TeaCoRepository teaCoRepository;
+    @Autowired
+    HomePageService homePageService;
 
+    /**
+     * 教师首页显示课程
+     * @param str
+     * @param httpServletRequest
+     * @return
+     */
+    @RequestMapping("/tea/id")
+    public @ResponseBody
+    AjaxResponse findTeaById(@RequestBody String str, HttpServletRequest httpServletRequest) {
+        authorityCheckService.checkTeacherAuthority(httpServletRequest.getSession().getAttribute("userInfo"));
+        String tea_id = JSON.parseObject(str).get("tea_id").toString();
+        List<CourseVO> json = homePageService.findTeaById(tea_id);
+        return AjaxResponse.success(json);
+
+    }
 
     /**
      * 学生
